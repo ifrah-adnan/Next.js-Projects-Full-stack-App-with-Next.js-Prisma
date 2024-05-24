@@ -25,15 +25,12 @@ const Sidebar = () => {
       </Link>
       <ul className=" flex space-x-6">
         {links.map((link, index) => (
-          <li
-            className="text-zinc-500 hover:text-zinc-800 font-bold "
-            key={index}
-          >
+          <li className=" hover:text-zinc-800 font-bold " key={index}>
             <Link
               href={link.href}
               className={classNames({
                 "text-zinc-800": link.href === currentPath,
-                "text-zinc-500": link.href !== currentPath,
+                "text-zinc-400": link.href !== currentPath,
                 "hover:text-xl": true,
               })}
             >

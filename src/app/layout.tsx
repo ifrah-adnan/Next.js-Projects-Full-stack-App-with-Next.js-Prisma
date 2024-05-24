@@ -4,8 +4,8 @@ import "./globals.css";
 import Sidebar from "./Sidebar";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
-
-const inter = Inter({ subsets: ["latin"] });
+import "./theme-config.css";
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         <Theme>
           <Sidebar></Sidebar>
 
