@@ -1,4 +1,7 @@
+"use client";
+import classNames from "classnames";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { IoLogoDribbble } from "react-icons/io";
 
@@ -13,6 +16,7 @@ const Sidebar = () => {
       href: "/issues",
     },
   ];
+  const currentPath = usePathname();
 
   return (
     <nav className="flex space-x-6  px-5 items-center border-b">
@@ -25,7 +29,14 @@ const Sidebar = () => {
             className="text-zinc-500 hover:text-zinc-800 font-bold "
             key={index}
           >
-            <Link href={link.href} className="hover:text-lg">
+            <Link
+              href={link.href}
+              className={classNames({
+                "text-zinc-800": link.href === currentPath,
+                "text-zinc-500": link.href !== currentPath,
+                "hover:text-xl": true,
+              })}
+            >
               {link.label}
             </Link>
           </li>
