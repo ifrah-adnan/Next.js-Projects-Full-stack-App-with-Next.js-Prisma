@@ -15,7 +15,7 @@ datasource db {
 
 model Issue {
   id          String   @id @default(uuid())
-  title       String   @db.Char(255)
+  title       String   
   description String
   status      Status   @default(OPEN)
   createdAt   DateTime @default(now())
@@ -25,5 +25,5 @@ model Issue {
 enum Status {
   OPEN
   IN_PROGRESS
-  DONE
+  cLOSE
 }
