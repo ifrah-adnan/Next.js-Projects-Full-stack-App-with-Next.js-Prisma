@@ -2,6 +2,7 @@
 import {
   Button,
   Callout,
+  Spinner,
   Text,
   TextArea,
   TextField,
@@ -16,6 +17,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/createIssueSchema";
 import { z } from "zod";
+import Errormessage from "@/app/component/errormessage";
 // interface IssueForm {
 //   title: string;
 //   description: string;
@@ -33,6 +35,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [isSubmmiting, setIsSebmuting] = useState(false);
   console.log(register);
   console.log("tst", control);
 
@@ -51,9 +54,12 @@ const NewIssuePage = () => {
         className="max-w-xl space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setIsSebmuting(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setIsSebmuting(false);
+
             setError("An unexpcted error occurred");
           }
         })}
@@ -62,11 +68,14 @@ const NewIssuePage = () => {
           placeholder="Title"
           {...register("title")}
         ></TextField.Root>
-        {errors.title && (
+        {/* {errors.title && (
           <Text color="red" as="p">
             {errors.title.message}
           </Text>
-        )}
+        )} */}
+
+        {/* on peut utilise ca en haut ou bien appeler un component que je deja creer   */}
+        <Errormessage> {errors.title?.message}</Errormessage>
         <Controller
           name="description"
           control={control}
@@ -74,14 +83,13 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Text color="red" as="p">
-            {" "}
-            {errors.description.message}
-          </Text>
-        )}
 
-        <Button type="submit"> Submit</Button>
+        <Errormessage> {errors.description?.message}</Errormessage>
+
+        <Button type="submit">
+          {" "}
+          Submit{isSubmmiting && <Spinner></Spinner>}
+        </Button>
       </form>
     </div>
   );
